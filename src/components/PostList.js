@@ -20,9 +20,10 @@ export default class PostList extends Component {
 
   render() {
     const {posts} = this.state
-    const {onPostDetailPage} = this.props
+    const {onPostDetailPage, onNewPostFormPage} = this.props
     return (
       <div>
+        <button onClick={() => onNewPostFormPage()}>새 글 쓰기</button>
         <h1>게시물 목록</h1>
         <ul>
           {posts.map(post => (
