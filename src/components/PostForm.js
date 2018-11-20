@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+
+// defaultValue에 다른 값을 또 넣어주지 않도록 주의
 export default class PostForm extends Component {
   render() {
     return (
