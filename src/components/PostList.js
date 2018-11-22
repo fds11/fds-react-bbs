@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import api from '../api';
 import Layout from './Layout'
+import {UserConsumer} from '../contexts/UserContext'
 
 export default class PostList extends Component {
   constructor(props) {
