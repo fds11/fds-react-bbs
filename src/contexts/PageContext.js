@@ -13,7 +13,8 @@ class PageProvider extends Component {
     // page === 'edit-post-form' -> 글 수정 페이지
     this.state = {
       // 현재 보고 있는 페이지 이름
-      page: 'post-list',
+      pathname: null,
+      params: new URLSearchParams(),
       // 현재 보고 있는 게시물의 ID
       currentPostId: null,
       goToEditPostFormPage: this.goToEditPostFormPage.bind(this),
@@ -23,8 +24,25 @@ class PageProvider extends Component {
       goToPostListPage: this.goToPostListPage.bind(this),
       goToRegisterPage: this.goToRegisterPage.bind(this),
     }
+    this.refreshLocation = this.refreshLocation.bind(this)
   }
 
+  refreshLocation() {
+    this.setState({
+      pathname: location.pathname,
+      params: new URLSearchParams(location.search)
+    })
+  }
+
+  componentDidMount() {
+    this.refreshLocation()
+    window.addEventListener('popstate', this.refreshLocation)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('popstate', this.refreshLocation)
+  }
+ 
   goToLoginFormPage() {
     this.setState({
       page: 'login'
