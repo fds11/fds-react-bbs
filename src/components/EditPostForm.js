@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import PostForm from './PostForm'
 import api from '../api';
+import { withPage } from '../contexts/PageContext';
 
-export default class EditPostForm extends Component {
+class EditPostForm extends Component {
   constructor(props) {
     super(props)
   
@@ -13,7 +14,7 @@ export default class EditPostForm extends Component {
   }
 
   async componentDidMount() {
-    const {data: {title, body}} = await api.get(`/posts/${this.props.postId}`)
+    const {data: {title, body}} = await api.get(`/posts/${this.props.currentPostId}`)
     this.setState({
       title,
       body
@@ -24,12 +25,12 @@ export default class EditPostForm extends Component {
     e.preventDefault()
     const title = e.target.elements.title.value
     const body = e.target.elements.body.value
-    await api.patch(`/posts/${this.props.postId}`, {
+    await api.patch(`/posts/${this.props.currentPostId}`, {
       title,
       body
     })
     // FIXME: 자기가 작성한 글만 수정 가능하도록 고쳐야 함
-    this.props.onPostDetailPage(this.props.postId)
+    this.props.goToPostDetailPage(this.props.currentPostId)
   }
 
   render() {
@@ -42,3 +43,5 @@ export default class EditPostForm extends Component {
     )
   }
 }
+
+export default withPage(EditPostForm)

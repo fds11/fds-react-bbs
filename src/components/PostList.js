@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import api from '../api';
 import Layout from './Layout'
-import {UserConsumer} from '../contexts/UserContext'
+import { withPage } from '../contexts/PageContext';
 
-export default class PostList extends Component {
+class PostList extends Component {
   constructor(props) {
     super(props)
   
@@ -22,17 +22,19 @@ export default class PostList extends Component {
 
   render() {
     const {posts} = this.state
-    const {onPostDetailPage, onNewPostFormPage, onLoginFormPage} = this.props
+    const {goToPostDetailPage, goToNewPostFormPage} = this.props
     return (
-      <Layout title="게시물 목록" onLoginFormPage={onLoginFormPage}>
-        <button onClick={() => onNewPostFormPage()}>새 글 쓰기</button>
+      <Layout title="게시물 목록">
+        <button onClick={goToNewPostFormPage}>새 글 쓰기</button>
         <h1>게시물 목록</h1>
         <ul>
           {posts.map(post => (
-            <li key={post.id} onClick={() => onPostDetailPage(post.id)}>{post.title}</li>
+            <li key={post.id} onClick={() => goToPostDetailPage(post.id)}>{post.title}</li>
           ))}
         </ul>
       </Layout>
     )
   }
 }
+
+export default withPage(PostList)

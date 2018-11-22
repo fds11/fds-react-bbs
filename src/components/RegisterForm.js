@@ -1,37 +1,29 @@
 import React, { Component } from 'react'
 
 import api from '../api'
+import { withPage } from '../contexts/PageContext';
+import { withUser } from '../contexts/UserContext';
 
-export default class RegisterForm extends Component {
+class RegisterForm extends Component {
   constructor(props) {
     super(props)
   
     this.state = {
       // 현재 입력 필드에 입력된 사용자 이름/암호
       username: '',
-      password: ''
+      password: '',
+      confirmPassword: ''
     }
   }
   
-  async handleSubmit(e) {
+  handleSubmit(e) {
     e.preventDefault()
-    const {username, password} = this.state
-    // 사용자 이름 중복체크
-    const {data: users} = await api.get('/users', {
-      params: {
-        username
-      }
-    })
-    if (users.length > 0) {
-      alert('이미 같은 이름이 사용 중입니다.')
+    const {username, password, confirmPassword} = this.state
+    if (password !== confirmPassword) {
+      alert('패스워드가 같지 않습니다. 다시 입력해주세요.')
       return
     }
-    const res = await api.post('/users/register', {
-      username,
-      password
-    })
-    localStorage.setItem('token', res.data.token)
-    // TODO: 게시글 목록 보여주기
+    this.props.registerUser(username, password)
   }
 
   handleFieldChange(e, name) {
@@ -43,14 +35,17 @@ export default class RegisterForm extends Component {
   }
 
   render() {
-    const {username, password} = this.state
+    const {username, password, confirmPassword} = this.state
     return (
       <form onSubmit={e => this.handleSubmit(e)}>
           <h1>회원 가입</h1>
-          <input type="text" name="username" value={username} onChange={e => this.handleFieldChange(e, 'username')} />
-          <input type="password" name="password" value={password} onChange={e => this.handleFieldChange(e, 'password')} />
+          <input type="text" value={username} onChange={e => this.handleFieldChange(e, 'username')} />
+          <input type="password" value={password} onChange={e => this.handleFieldChange(e, 'password')} />
+          <input type="password" value={confirmPassword} onChange={e => this.handleFieldChange(e, 'confirmPassword')} />
           <button>가입</button>
       </form>
     )
   }
 }
+
+export default withUser(withPage(RegisterForm))

@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import api from '../api';
 import PostForm from './PostForm'
+import { withPage } from '../contexts/PageContext';
 
-export default class NewPostForm extends Component {
+class NewPostForm extends Component {
   async handleSubmit(e) {
     e.preventDefault()
     const title = e.target.elements.title.value
@@ -11,7 +12,7 @@ export default class NewPostForm extends Component {
       title,
       body
     })
-    this.props.onPostDetailPage(res.data.id)
+    this.props.goToPostDetailPage(res.data.id)
   }
   
   render() {
@@ -20,3 +21,5 @@ export default class NewPostForm extends Component {
     )
   }
 }
+
+export default withPage(NewPostForm)

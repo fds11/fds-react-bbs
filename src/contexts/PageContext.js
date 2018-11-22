@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 const {Provider, Consumer} = React.createContext()
 
-export default class PageProvider extends Component {
+class PageProvider extends Component {
   constructor(props) {
     super(props)
     // page === 'login' -> 로그인 페이지
@@ -15,51 +15,51 @@ export default class PageProvider extends Component {
       // 현재 보고 있는 페이지 이름
       page: 'post-list',
       // 현재 보고 있는 게시물의 ID
-      postId: null,
-      handleEditPostFormPage: this.handleEditPostFormPage.bind(this),
-      handleLoginFormPage: this.handleLoginFormPage.bind(this),
-      handleNewPostFormPage: this.handleNewPostFormPage.bind(this),
-      handlePostDetailPage: this.handlePostDetailPage.bind(this),
-      handlePostListPage: this.handlePostListPage.bind(this),
-      handleRegisterPage: this.handleRegisterPage.bind(this),
+      currentPostId: null,
+      goToEditPostFormPage: this.goToEditPostFormPage.bind(this),
+      goToLoginFormPage: this.goToLoginFormPage.bind(this),
+      goToNewPostFormPage: this.goToNewPostFormPage.bind(this),
+      goToPostDetailPage: this.goToPostDetailPage.bind(this),
+      goToPostListPage: this.goToPostListPage.bind(this),
+      goToRegisterPage: this.goToRegisterPage.bind(this),
     }
   }
 
-  handleLoginFormPage() {
+  goToLoginFormPage() {
     this.setState({
       page: 'login'
     })
   }
 
-  handlePostListPage() {
+  goToPostListPage() {
     this.setState({
       page: 'post-list'
     })
   }
 
-  handleRegisterPage() {
+  goToRegisterPage() {
     this.setState({
       page: 'register'
     })
   }
 
-  handlePostDetailPage(postId) {
+  goToPostDetailPage(postId) {
     this.setState({
       page: 'post-detail',
-      postId
+      currentPostId: postId
     })
   }
 
-  handleNewPostFormPage() {
+  goToNewPostFormPage() {
     this.setState({
       page: 'new-post-form'
     })
   }
 
-  handleEditPostFormPage(postId) {
+  goToEditPostFormPage(postId) {
     this.setState({
       page: 'edit-post-form',
-      postId
+      currentPostId: postId
     })
   }
 
@@ -70,7 +70,16 @@ export default class PageProvider extends Component {
   }
 }
 
+function withPage(WrappedComponent) {
+  return function WithPage(props) {
+    return (
+      <Consumer>{value => <WrappedComponent {...value} {...props} />}</Consumer>
+    )
+  }
+}
+
 export {
   PageProvider,
-  Consumer as PageConsumer
+  Consumer as PageConsumer,
+  withPage
 }

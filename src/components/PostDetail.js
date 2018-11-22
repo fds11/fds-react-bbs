@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import api from '../api';
 
 import Layout from './Layout'
-import {UserConsumer} from '../contexts/UserContext'
+import {UserConsumer, withUser} from '../contexts/UserContext'
+import { withPage } from '../contexts/PageContext';
 
-export default class PostDetail extends Component {
+class PostDetail extends Component {
 
   constructor(props) {
     super(props)
@@ -17,7 +18,8 @@ export default class PostDetail extends Component {
   }
   
   async componentDidMount() {
-    const {data: {title, body, userId}} = await api.get(`/posts/${this.props.postId}`)
+    const {currentPostId} = this.props
+    const {data: {title, body, userId}} = await api.get(`/posts/${currentPostId}`)
     this.setState({
       title,
       body,
@@ -26,22 +28,18 @@ export default class PostDetail extends Component {
   }
   
   render() {
-    const {postId, onEditPostFormPage} = this.props
-    const {title, body} = this.state
+    const {goToEditPostFormPage, userId} = this.props
+    const {userId: authorId, title, body} = this.state
 
     return (
       <Layout title="게시물 내용">
         <h1>게시물</h1>
-        <UserConsumer>
-          {({id}) => {
-            if (this.state.userId === id) {
-              return <button onClick={() => onEditPostFormPage(postId)}>수정</button>
-            }
-          }}
-        </UserConsumer>
+        {userId === authorId && <button onClick={() => goToEditPostFormPage(this.props.currentPostId)}>수정</button>}
         <div>{title}</div>
         <div>{body}</div>
       </Layout>
     )
   }
 }
+
+export default withUser(withPage(PostDetail))
