@@ -5,12 +5,6 @@ const {Provider, Consumer} = React.createContext()
 class PageProvider extends Component {
   constructor(props) {
     super(props)
-    // page === 'login' -> 로그인 페이지
-    // page === 'register' -> 회원가입 페이지
-    // page === 'post-list' -> 게시물 목록 페이지
-    // page === 'post-detail' -> 게시물 세부 페이지
-    // page === 'new-post-form' -> 새 글 쓰기 페이지
-    // page === 'edit-post-form' -> 글 수정 페이지
     this.state = {
       pathname: window.location.pathname,
       params: new URLSearchParams(window.location.search),
