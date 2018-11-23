@@ -21,7 +21,6 @@ class PageProvider extends Component {
   }
 
   componentDidMount() {
-    this.refreshLocation()
     window.addEventListener('popstate', this.refreshLocation)
   }
 
