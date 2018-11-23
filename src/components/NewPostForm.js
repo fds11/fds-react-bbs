@@ -12,7 +12,7 @@ class NewPostForm extends Component {
       title,
       body
     })
-    this.props.goToPostDetailPage(res.data.id)
+    this.props.pushState(`/post-detail?postId=${res.data.id}`)
   }
   
   render() {

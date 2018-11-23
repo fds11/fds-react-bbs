@@ -12,25 +12,17 @@ class PageProvider extends Component {
     // page === 'new-post-form' -> 새 글 쓰기 페이지
     // page === 'edit-post-form' -> 글 수정 페이지
     this.state = {
-      // 현재 보고 있는 페이지 이름
-      pathname: null,
-      params: new URLSearchParams(),
-      // 현재 보고 있는 게시물의 ID
-      currentPostId: null,
-      goToEditPostFormPage: this.goToEditPostFormPage.bind(this),
-      goToLoginFormPage: this.goToLoginFormPage.bind(this),
-      goToNewPostFormPage: this.goToNewPostFormPage.bind(this),
-      goToPostDetailPage: this.goToPostDetailPage.bind(this),
-      goToPostListPage: this.goToPostListPage.bind(this),
-      goToRegisterPage: this.goToRegisterPage.bind(this),
+      pathname: window.location.pathname,
+      params: new URLSearchParams(window.location.search),
+      pushState: this.pushState.bind(this)
     }
     this.refreshLocation = this.refreshLocation.bind(this)
   }
 
   refreshLocation() {
     this.setState({
-      pathname: location.pathname,
-      params: new URLSearchParams(location.search)
+      pathname: window.location.pathname,
+      params: new URLSearchParams(window.location.search)
     })
   }
 
@@ -43,42 +35,9 @@ class PageProvider extends Component {
     window.removeEventListener('popstate', this.refreshLocation)
   }
  
-  goToLoginFormPage() {
-    this.setState({
-      page: 'login'
-    })
-  }
-
-  goToPostListPage() {
-    this.setState({
-      page: 'post-list'
-    })
-  }
-
-  goToRegisterPage() {
-    this.setState({
-      page: 'register'
-    })
-  }
-
-  goToPostDetailPage(postId) {
-    this.setState({
-      page: 'post-detail',
-      currentPostId: postId
-    })
-  }
-
-  goToNewPostFormPage() {
-    this.setState({
-      page: 'new-post-form'
-    })
-  }
-
-  goToEditPostFormPage(postId) {
-    this.setState({
-      page: 'edit-post-form',
-      currentPostId: postId
-    })
+  pushState(url) {
+    window.history.pushState('', '', url)
+    this.refreshLocation()
   }
 
   render() {

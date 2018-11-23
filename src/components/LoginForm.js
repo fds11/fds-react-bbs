@@ -11,7 +11,7 @@ class LoginForm extends React.Component {
   }
 
   render() {
-    const {goToRegisterPage} = this.props
+    const {pushState} = this.props
     return (
       <React.Fragment>
         <form onSubmit={e => this.handleSubmit(e)}>
@@ -21,7 +21,7 @@ class LoginForm extends React.Component {
 
           <button>로그인</button>
         </form>
-        <button onClick={goToRegisterPage}>회원 가입</button>
+        <button onClick={() => pushState('/register')}>회원 가입</button>
       </React.Fragment>
     )
   }

@@ -42,7 +42,7 @@ class UserProvider extends Component {
     localStorage.setItem('token', res.data.token)
     this.refreshUser()
     // 게시글 목록 보여주기
-    this.props.goToPostListPage()
+    this.props.pushState('/post-list')
   }
   
   async login(username, password) {
@@ -53,7 +53,7 @@ class UserProvider extends Component {
     localStorage.setItem('token', res.data.token)
     await this.refreshUser()
     // 게시글 목록 보여주기
-    this.props.goToPostListPage()
+    this.props.pushState('/post-list')
   }
 
   logout() {
@@ -65,7 +65,7 @@ class UserProvider extends Component {
       username: null
     })
     // 로그인 폼 보여주기
-    this.props.goToLoginFormPage()
+    this.props.pushState('/login')
   }
 
   async refreshUser() {

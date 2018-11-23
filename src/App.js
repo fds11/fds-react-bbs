@@ -15,21 +15,21 @@ class App extends Component {
     return (
       <PageProvider>
         <UserProvider>
-          <PageConsumer>{({ page }) => (
+          <PageConsumer>{({ pathname, pushState }) => (
             <div className="App">
-              {page === 'login' ? (
+              {pathname === '/login' ? (
                 <LoginForm />
-              ) : page === 'register' ? (
+              ) : pathname === '/register' ? (
                 <RegisterForm />
-              ) : page === 'post-list' ? (
+              ) : pathname === '/post-list' ? (
                 <PostList />
-              ) : page === 'post-detail' ? (
+              ) : pathname === '/post-detail' ? (
                 <PostDetail />
-              ) : page === 'new-post-form' ? (
+              ) : pathname === '/new-post' ? (
                 <NewPostForm />
-              ) : page === 'edit-post-form' ? (
+              ) : pathname === '/edit-post' ? (
                 <EditPostForm />
-              ) : null}
+              ) : pushState('/post-list')}
             </div>
           )}</PageConsumer>
         </UserProvider>

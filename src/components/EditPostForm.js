@@ -14,7 +14,9 @@ class EditPostForm extends Component {
   }
 
   async componentDidMount() {
-    const {data: {title, body}} = await api.get(`/posts/${this.props.currentPostId}`)
+    const {params} = this.props
+    const postId = params.get('postId')
+    const {data: {title, body}} = await api.get(`/posts/${postId}`)
     this.setState({
       title,
       body
@@ -23,14 +25,15 @@ class EditPostForm extends Component {
   
   async handleSubmit(e) {
     e.preventDefault()
+    const {params} = this.props
+    const postId = params.get('postId')
     const title = e.target.elements.title.value
     const body = e.target.elements.body.value
-    await api.patch(`/posts/${this.props.currentPostId}`, {
+    await api.patch(`/posts/${postId}`, {
       title,
       body
     })
-    // FIXME: 자기가 작성한 글만 수정 가능하도록 고쳐야 함
-    this.props.goToPostDetailPage(this.props.currentPostId)
+    this.props.pushState(`/post-detail?postId=${postId}`)
   }
 
   render() {

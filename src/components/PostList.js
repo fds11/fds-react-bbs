@@ -22,14 +22,14 @@ class PostList extends Component {
 
   render() {
     const {posts} = this.state
-    const {goToPostDetailPage, goToNewPostFormPage} = this.props
+    const {pushState} = this.props
     return (
       <Layout title="게시물 목록">
-        <button onClick={goToNewPostFormPage}>새 글 쓰기</button>
+        <button onClick={() => pushState('/new-post')}>새 글 쓰기</button>
         <h1>게시물 목록</h1>
         <ul>
           {posts.map(post => (
-            <li key={post.id} onClick={() => goToPostDetailPage(post.id)}>{post.title}</li>
+            <li key={post.id} onClick={() => pushState(`/post-detail?postId=${post.id}`)}>{post.title}</li>
           ))}
         </ul>
       </Layout>

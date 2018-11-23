@@ -5,7 +5,7 @@ import { withUser } from '../contexts/UserContext';
 
 class Layout extends Component {
   render() {
-    const {title, username, goToLoginFormPage, logout, children} = this.props
+    const {title, username, pushState, logout, children} = this.props
     return (
       <div>
         <div className="header">
@@ -14,7 +14,7 @@ class Layout extends Component {
           {username ? (
             <button onClick={logout}>로그아웃</button>
           ) : (
-            <button onClick={goToLoginFormPage}>로그인</button>
+            <button onClick={() => pushState('/login')}>로그인</button>
           )}
         </div>
         <h1 className="title">{title}</h1>
