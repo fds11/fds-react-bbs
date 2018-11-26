@@ -2,7 +2,12 @@ import React, { Component } from 'react'
 
 import api from '../api'
 
-const {Provider, Consumer} = React.createContext()
+const {Provider, Consumer} = React.createContext({
+  username: 'fast',
+  id: 0,
+  login: () => {},
+  logout: () => {}
+})
 
 export default class UserProvider extends Component {
   constructor(props) {
