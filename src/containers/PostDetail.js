@@ -1,34 +1,35 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
-import PostDetailView from '../components/PostDetailView'
+import PostDetailView from '../components/PostDetailView';
 import api from '../api';
 
 export default class PostDetail extends Component {
-
   constructor(props) {
-    super(props)
-  
+    super(props);
+
     this.state = {
       body: '',
       title: '',
       userId: null,
-      loading: true
-    }
+      loading: true,
+    };
   }
-  
+
   async componentDidMount() {
-    const {data: {title, body, userId}} = await api.get(`/posts/${this.props.postId}`)
+    const {
+      data: { title, body, userId },
+    } = await api.get(`/posts/${this.props.postId}`);
     this.setState({
       title,
       body,
       userId,
-      loading: false
-    })
+      loading: false,
+    });
   }
-  
+
   render() {
-    const {onEditPostFormPage, postId} = this.props
-    const {userId, title, body, loading} = this.state
+    const { onEditPostFormPage, postId } = this.props;
+    const { userId, title, body, loading } = this.state;
     return (
       <PostDetailView
         loading={loading}
@@ -38,6 +39,6 @@ export default class PostDetail extends Component {
         title={title}
         body={body}
       />
-    )
+    );
   }
 }

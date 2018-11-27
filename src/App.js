@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import LoginForm from './components/LoginForm'
-import RegisterForm from './components/RegisterForm'
-import PostListPage from './pages/PostListPage'
+import LoginForm from './components/LoginForm';
+import RegisterForm from './components/RegisterForm';
+import PostListPage from './pages/PostListPage';
 import PostDetailPage from './pages/PostDetailPage';
 import NewPostForm from './components/NewPostForm';
 import EditPostForm from './components/EditPostForm';
@@ -15,7 +15,7 @@ import { UserProvider } from './contexts/UserContext';
 
 class App extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     // page === 'login' -> 로그인 페이지
     // page === 'register' -> 회원가입 페이지
     // page === 'post-list' -> 게시물 목록 페이지
@@ -25,46 +25,46 @@ class App extends Component {
     this.state = {
       page: 'post-list',
       // 현재 보고 있는 게시물의 ID
-      postId: null
-    }
+      postId: null,
+    };
   }
 
   handleLoginFormPage() {
     this.setState({
-      page: 'login'
-    })
+      page: 'login',
+    });
   }
 
   handlePostListPage() {
     this.setState({
-      page: 'post-list'
-    })
+      page: 'post-list',
+    });
   }
 
   handleRegisterPage() {
     this.setState({
-      page: 'register'
-    })
+      page: 'register',
+    });
   }
 
   handlePostDetailPage(postId) {
     this.setState({
       page: 'post-detail',
-      postId
-    })
+      postId,
+    });
   }
 
   handleNewPostFormPage() {
     this.setState({
-      page: 'new-post-form'
-    })
+      page: 'new-post-form',
+    });
   }
 
   handleEditPostFormPage(postId) {
     this.setState({
       page: 'edit-post-form',
-      postId
-    })
+      postId,
+    });
   }
 
   render() {
@@ -82,11 +82,19 @@ class App extends Component {
               onNewPostFormPage={() => this.handleNewPostFormPage()}
             />
           ) : this.state.page === 'post-detail' ? (
-            <PostDetailPage postId={this.state.postId} onEditPostFormPage={postId => this.handleEditPostFormPage(postId)} />
+            <PostDetailPage
+              postId={this.state.postId}
+              onEditPostFormPage={postId => this.handleEditPostFormPage(postId)}
+            />
           ) : this.state.page === 'new-post-form' ? (
-            <NewPostForm onPostDetailPage={postId => this.handlePostDetailPage(postId)} />
+            <NewPostForm
+              onPostDetailPage={postId => this.handlePostDetailPage(postId)}
+            />
           ) : this.state.page === 'edit-post-form' ? (
-            <EditPostForm postId={this.state.postId} onPostDetailPage={postId => this.handlePostDetailPage(postId)} />
+            <EditPostForm
+              postId={this.state.postId}
+              onPostDetailPage={postId => this.handlePostDetailPage(postId)}
+            />
           ) : null}
         </div>
       </UserProvider>

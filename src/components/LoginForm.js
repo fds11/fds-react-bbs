@@ -1,6 +1,6 @@
-import React from 'react'
-import {UserConsumer, withUser} from '../contexts/UserContext'
-import {Form} from 'semantic-ui-react'
+import React from 'react';
+import { UserConsumer, withUser } from '../contexts/UserContext';
+import { Form } from 'semantic-ui-react';
 
 class LoginForm extends React.Component {
   static defaultProps = {
@@ -8,24 +8,24 @@ class LoginForm extends React.Component {
     // username과 password 인수를 받음
     login: (username, password) => {},
     // 회원 가입 버튼을 눌렀을 때 호출되는 함수
-    onRegister: () => {}
-  }
+    onRegister: () => {},
+  };
   constructor(props) {
-    super(props)
-  
-    this.usernameRef = React.createRef()
-    this.passwordRef = React.createRef()
+    super(props);
+
+    this.usernameRef = React.createRef();
+    this.passwordRef = React.createRef();
   }
-  
+
   handleSubmit(e) {
-    e.preventDefault()
-    const username = e.target.elements.username.value
-    const password = e.target.elements.password.value
-    this.props.login(username, password)
+    e.preventDefault();
+    const username = e.target.elements.username.value;
+    const password = e.target.elements.password.value;
+    this.props.login(username, password);
   }
 
   render() {
-    const {onRegister} = this.props
+    const { onRegister } = this.props;
     return (
       <React.Fragment>
         <Form onSubmit={e => this.handleSubmit(e)}>
@@ -37,8 +37,8 @@ class LoginForm extends React.Component {
         </Form>
         <button onClick={() => onRegister()}>회원 가입</button>
       </React.Fragment>
-    )
+    );
   }
 }
 
-export default withUser(LoginForm)
+export default withUser(LoginForm);

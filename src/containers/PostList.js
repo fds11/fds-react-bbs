@@ -1,11 +1,11 @@
-import React, { Component } from "react";
-import api from "../api";
-import Layout from "../components/Layout";
-import { UserConsumer } from "../contexts/UserContext";
-import classNames from "classnames";
+import React, { Component } from 'react';
+import api from '../api';
+import Layout from '../components/Layout';
+import { UserConsumer } from '../contexts/UserContext';
+import classNames from 'classnames';
 
-import "../components/PostList.scss";
-import PostListView from "../components/PostListView";
+import '../components/PostList.scss';
+import PostListView from '../components/PostListView';
 
 export default class PostList extends Component {
   constructor(props) {
@@ -13,15 +13,15 @@ export default class PostList extends Component {
 
     this.state = {
       posts: [],
-      loading: true
+      loading: true,
     };
   }
 
   async componentDidMount() {
-    const res = await api.get("/posts");
+    const res = await api.get('/posts');
     this.setState({
       posts: res.data,
-      loading: false
+      loading: false,
     });
   }
 
