@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import classNames from 'classnames'
+import {Form} from 'semantic-ui-react'
 
 import s from './PostForm.module.scss'
 
@@ -18,16 +19,16 @@ export default class PostForm extends Component {
     })
     return (
       <div>
-        <form onSubmit={e => {
+        <Form onSubmit={e => {
           e.preventDefault()
           const title = e.target.elements.title.value
           const body = e.target.elements.body.value
           this.props.onSubmit(title, body)
           }}>
-          <input className={titleClass} type="text" name="title" defaultValue={this.props.title} />
-          <textarea name="body" cols="30" rows="10" defaultValue={this.props.body}></textarea>
+          <Form.Input className={titleClass} type="text" name="title" defaultValue={this.props.title} />
+          <Form.TextArea name="body" cols="30" rows="10" defaultValue={this.props.body}></Form.TextArea>
           <button>전송</button>
-        </form>
+        </Form>
       </div>
     )
   }
