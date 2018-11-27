@@ -4,7 +4,7 @@ import './App.css';
 
 import LoginForm from './components/LoginForm'
 import RegisterForm from './components/RegisterForm'
-import PostList from './components/PostList'
+import PostListPage from './pages/PostListPage'
 import PostDetailPage from './pages/PostDetailPage';
 import NewPostForm from './components/NewPostForm';
 import EditPostForm from './components/EditPostForm';
@@ -76,7 +76,7 @@ class App extends Component {
           ) : this.state.page === 'register' ? (
             <RegisterForm />
           ) : this.state.page === 'post-list' ? (
-            <PostList
+            <PostListPage
               onLoginFormPage={() => this.handleLoginFormPage()}
               onPostDetailPage={postId => this.handlePostDetailPage(postId)}
               onNewPostFormPage={() => this.handleNewPostFormPage()}
